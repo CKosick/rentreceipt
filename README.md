@@ -71,20 +71,31 @@ npm test
 - **Ledger & Tax:** Running balance continuity, partial payments, late fee accrual, overpayments, exact year-end aggregations.
 - **PDF Generation:** Valid binary `%PDF-1.3` generation using bundled offline jsPDF.
 - **Export / Import:** Clean JSON backup serialization, complete profile restoration, schema validation.
+- **HTML Sanitization:** `escapeHtml` neutralizes script injection, tags, quotes, and malicious tenant names.
 - **Zero-Network Audit:** Automated source audit across all shipped code ensuring 0 occurrences of `fetch()`, `XMLHttpRequest`, `WebSocket`, `sendBeacon`, or tracking libraries.
 - **Manifest V3:** Version 3 compliance, icon paths, and strictly zero permissions.
+
+### Real Browser Automated Load Test
+
+To run the automated browser test that launches Chrome with the unpacked extension, exercises real IndexedDB storage, tests PDF generation, verifies zero console errors, and captures 1280×800 store screenshots:
+
+```bash
+npm run test:browser
+```
+
+Audit results are written to `test/browser-test.log`.
 
 ---
 
 ## Packaging for Chrome Web Store
 
-To produce a production zip package for Chrome Web Store upload:
+To produce a verified, cross-platform PKZip package for Chrome Web Store upload:
 
 ```bash
 npm run package
 ```
 
-This runs all test suites and generates `dist/rentreceipt-v1.0.0.zip`.
+This runs both the unit test suite and real browser test, verifies the `0x504B0304` PKZip signature, and generates `dist/rentreceipt-v1.0.0.zip`.
 
 ---
 

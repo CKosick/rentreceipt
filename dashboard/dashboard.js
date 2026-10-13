@@ -27,6 +27,7 @@ import {
 } from '../shared/storage.js';
 
 import { downloadReceiptPdf } from '../shared/pdf-generator.js';
+import { escapeHtml } from '../shared/escape.js';
 
 // State cache
 let cachedTenants = [];
@@ -188,19 +189,19 @@ function renderPaymentsTable() {
 
     return `
       <tr>
-        <td><strong>${p.receiptNumber || 'RR-0000'}</strong></td>
-        <td>${p.date || '—'}</td>
-        <td>${p.tenantName || '—'}</td>
-        <td>${p.unit || '—'}</td>
-        <td><span class="badge-neutral">${(p.method || 'direct').toUpperCase()}</span></td>
+        <td><strong>${escapeHtml(p.receiptNumber || 'RR-0000')}</strong></td>
+        <td>${escapeHtml(p.date || '—')}</td>
+        <td>${escapeHtml(p.tenantName || '—')}</td>
+        <td>${escapeHtml(p.unit || '—')}</td>
+        <td><span class="badge-neutral">${escapeHtml((p.method || 'direct').toUpperCase())}</span></td>
         <td>${formatCurrency(rentPart)}</td>
         <td>${lateFeeBadge}</td>
         <td><strong>${formatCurrency(p.amount)}</strong></td>
         <td>
-          <button class="btn btn-secondary btn-sm btn-download-pdf" data-id="${p.id}" title="Download Official PDF Receipt">
+          <button class="btn btn-secondary btn-sm btn-download-pdf" data-id="${escapeHtml(p.id)}" title="Download Official PDF Receipt">
             📄 PDF
           </button>
-          <button class="btn btn-secondary btn-sm btn-delete-payment" data-id="${p.id}" title="Delete Payment Record">
+          <button class="btn btn-secondary btn-sm btn-delete-payment" data-id="${escapeHtml(p.id)}" title="Delete Payment Record">
             🗑️
           </button>
         </td>
@@ -248,15 +249,15 @@ function renderTenantsTable() {
 
     return `
       <tr>
-        <td><strong>${t.name}</strong></td>
-        <td><span class="badge-neutral">${t.unit}</span></td>
+        <td><strong>${escapeHtml(t.name)}</strong></td>
+        <td><span class="badge-neutral">${escapeHtml(t.unit)}</span></td>
         <td><strong>${formatCurrency(t.monthlyRent)}</strong></td>
-        <td>Day ${t.dueDayOfMonth || 1}</td>
-        <td>${t.gracePeriodDays ?? 5} days</td>
-        <td><span class="badge-neutral">${ruleText}</span></td>
+        <td>Day ${escapeHtml(t.dueDayOfMonth || 1)}</td>
+        <td>${escapeHtml(t.gracePeriodDays ?? 5)} days</td>
+        <td><span class="badge-neutral">${escapeHtml(ruleText)}</span></td>
         <td>
-          <button class="btn btn-secondary btn-sm btn-edit-tenant" data-id="${t.id}">✏️ Edit</button>
-          <button class="btn btn-secondary btn-sm btn-delete-tenant" data-id="${t.id}">🗑️</button>
+          <button class="btn btn-secondary btn-sm btn-edit-tenant" data-id="${escapeHtml(t.id)}">✏️ Edit</button>
+          <button class="btn btn-secondary btn-sm btn-delete-tenant" data-id="${escapeHtml(t.id)}">🗑️</button>
         </td>
       </tr>
     `;
@@ -287,7 +288,7 @@ function populateTenantDropdowns() {
   const ledgerSelect = document.getElementById('ledger-tenant-select');
 
   const optionsHtml = '<option value="">-- Choose Tenant --</option>' +
-    cachedTenants.map(t => `<option value="${t.id}">${t.name} (${t.unit})</option>`).join('');
+    cachedTenants.map(t => `<option value="${escapeHtml(t.id)}">${escapeHtml(t.name)} (${escapeHtml(t.unit)})</option>`).join('');
 
   if (paymentSelect) paymentSelect.innerHTML = optionsHtml;
   if (ledgerSelect) ledgerSelect.innerHTML = optionsHtml;
@@ -594,7 +595,7 @@ function renderLedgerView() {
   document.getElementById('ledger-current-balance').textContent = formatCurrency(ledgerResult.summary.currentBalance);
 
   if (ledgerResult.entries.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-muted">No transactions recorded for ${tenant?.name}.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-muted">No transactions recorded for ${escapeHtml(tenant?.name)}.</td></tr>`;
     return;
   }
 
@@ -609,14 +610,14 @@ function renderLedgerView() {
       : `<span style="color: #1E3A8A;">+${formatCurrency(e.amount)}</span>`;
 
     const receiptBtn = e.paymentRecord
-      ? `<button class="btn btn-secondary btn-sm btn-ledger-pdf" data-id="${e.paymentRecord.id}">📄 PDF</button>`
+      ? `<button class="btn btn-secondary btn-sm btn-ledger-pdf" data-id="${escapeHtml(e.paymentRecord.id)}">📄 PDF</button>`
       : '—';
 
     return `
       <tr>
-        <td>${e.date}</td>
+        <td>${escapeHtml(e.date)}</td>
         <td>${typeBadge}</td>
-        <td>${e.description}</td>
+        <td>${escapeHtml(e.description)}</td>
         <td><strong>${amountFormatted}</strong></td>
         <td><strong>${formatCurrency(e.runningBalance)}</strong></td>
         <td>${receiptBtn}</td>
@@ -648,7 +649,7 @@ function renderYearEndView() {
   const sortedYears = Array.from(years).sort((a, b) => b - a);
   const currentSelectedYear = yearSelect.value || String(sortedYears[0]);
 
-  yearSelect.innerHTML = sortedYears.map(y => `<option value="${y}" ${String(y) === String(currentSelectedYear) ? 'selected' : ''}>${y}</option>`).join('');
+  yearSelect.innerHTML = sortedYears.map(y => `<option value="${escapeHtml(y)}" ${String(y) === String(currentSelectedYear) ? 'selected' : ''}>${escapeHtml(y)}</option>`).join('');
 
   const targetYear = Number(yearSelect.value);
   const taxSummary = generateYearEndSummary(cachedPayments, cachedTenants, targetYear);
@@ -665,10 +666,10 @@ function renderYearEndView() {
 
   tbody.innerHTML = taxSummary.byTenant.map(row => `
     <tr>
-      <td><strong>${row.unit}</strong></td>
-      <td>${row.tenantName}</td>
-      <td>${row.paymentCount} payments</td>
-      <td>${row.monthsPaidCount} months</td>
+      <td><strong>${escapeHtml(row.unit)}</strong></td>
+      <td>${escapeHtml(row.tenantName)}</td>
+      <td>${escapeHtml(row.paymentCount)} payments</td>
+      <td>${escapeHtml(row.monthsPaidCount)} months</td>
       <td>${formatCurrency(row.rentCollected)}</td>
       <td>${formatCurrency(row.lateFeesCollected)}</td>
       <td><strong>${formatCurrency(row.totalCollected)}</strong></td>

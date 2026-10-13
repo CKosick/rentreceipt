@@ -18,6 +18,7 @@ import {
 } from '../shared/storage.js';
 
 import { downloadReceiptPdf } from '../shared/pdf-generator.js';
+import { escapeHtml } from '../shared/escape.js';
 
 let cachedTenants = [];
 let cachedPayments = [];
@@ -92,12 +93,12 @@ function renderRecentPayments() {
     return `
       <div class="payment-item">
         <div class="payment-info">
-          <span class="payment-title">${p.tenantName || 'Tenant'} (${p.unit || 'Unit'})</span>
-          <span class="payment-meta">${p.date} • ${p.receiptNumber}</span>
+          <span class="payment-title">${escapeHtml(p.tenantName || 'Tenant')} (${escapeHtml(p.unit || 'Unit')})</span>
+          <span class="payment-meta">${escapeHtml(p.date)} • ${escapeHtml(p.receiptNumber)}</span>
         </div>
         <div class="payment-right">
           <span class="payment-amount">${formatCurrency(p.amount)} ${feeTag}</span>
-          <button class="btn btn-secondary btn-sm btn-pdf" data-id="${p.id}">📄 Receipt PDF</button>
+          <button class="btn btn-secondary btn-sm btn-pdf" data-id="${escapeHtml(p.id)}">📄 Receipt PDF</button>
         </div>
       </div>
     `;
@@ -122,7 +123,7 @@ function populateTenantSelect() {
   }
 
   popTenantSelect.innerHTML = `<option value="">-- Select Tenant --</option>` +
-    cachedTenants.map(t => `<option value="${t.id}">${t.name} (${t.unit})</option>`).join('');
+    cachedTenants.map(t => `<option value="${escapeHtml(t.id)}">${escapeHtml(t.name)} (${escapeHtml(t.unit)})</option>`).join('');
 }
 
 function setupDrawer() {

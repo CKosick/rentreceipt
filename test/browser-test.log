@@ -1,0 +1,24 @@
+[2026-10-13T12:11:20.244Z] 🚀 Starting Real Browser Load Test & Screenshot Generation...
+[2026-10-13T12:11:20.246Z] Detected Chrome binary: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
+[2026-10-13T12:11:20.944Z] Navigating to Dashboard: file:///C:/Users/Cliff/Documents/chrome_ext/RentReceipt/dashboard/dashboard.html
+[2026-10-13T12:11:22.014Z] Page Title verified: "RentReceipt - Landlord Dashboard & Ledger"
+[2026-10-13T12:11:22.014Z] Exercising real IndexedDB storage operations inside Chrome...
+[2026-10-13T12:11:22.034Z] IndexedDB verification result: {"tenantsCount":2,"paymentsCount":2,"landlord":"Apex Properties LLC"}
+[2026-10-13T12:11:22.034Z] Reloading dashboard to verify IndexedDB hydration and DOM rendering...
+[2026-10-13T12:11:23.035Z] Payments table rendered with 2 rows
+[2026-10-13T12:11:23.035Z] Exercising client-side PDF receipt generation button...
+[2026-10-13T12:11:23.048Z] PDF download button clicked successfully: true
+[2026-10-13T12:11:23.117Z] 📸 Real Screenshot 1 captured: C:\Users\Cliff\Documents\chrome_ext\RentReceipt\store-assets\screenshot-1-payments.png (1280x800)
+[2026-10-13T12:11:23.117Z] Opening Record Payment modal with live Late-Fee Calculator...
+[2026-10-13T12:11:23.268Z] Live Calculator output: {"badge":"Late (7d)","ruleText":"$10.00/day × 7 days = $70.00","amount":"$70.00","total":"1520.00"}
+[2026-10-13T12:11:23.421Z] 📸 Real Screenshot 2 captured: C:\Users\Cliff\Documents\chrome_ext\RentReceipt\store-assets\screenshot-2-calculator.png (1280x800)
+[2026-10-13T12:11:23.433Z] Navigating to Year-End Tax Summary tab...
+[2026-10-13T12:11:23.454Z] Tax Summary rendered: {"gross":"$2,720.00","rent":"$2,650.00","lateFees":"$70.00","rows":2}
+[2026-10-13T12:11:23.642Z] 📸 Real Screenshot 3 captured: C:\Users\Cliff\Documents\chrome_ext\RentReceipt\store-assets\screenshot-3-tax-summary.png (1280x800)
+[2026-10-13T12:11:23.642Z] Testing extension popup (popup/popup.html)...
+[2026-10-13T12:11:24.698Z] Popup loaded successfully: {"title":"RentReceipt","monthTotal":"$2,720.00","tenantCount":"2 Active","itemsCount":2}
+[2026-10-13T12:11:24.698Z] 
+--- Real Browser Load Test Results ---
+[2026-10-13T12:11:24.698Z] Console errors count: 0
+[2026-10-13T12:11:24.698Z] Page exceptions count: 0
+[2026-10-13T12:11:24.698Z] ✅ All browser checks PASSED with 0 console errors and 0 uncaught exceptions!

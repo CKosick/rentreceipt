@@ -89,11 +89,15 @@ Open source and verified under the MIT License.
 
 ## 6. Version History
 
-- **v1.0.0 (2026-10-12):**  
-  - Initial MVP build.
+- **v1.0.0 (2026-10-13):**  
+  - Initial MVP build and review hardening.
   - Tenant and unit profiles with configurable late fee rules (flat and daily).
   - One-click client-side PDF receipt generation with bundled jsPDF.
   - Per-tenant ledgers with running balances.
   - Year-end tax summary grouped by tenant and unit with CSV export.
   - Full JSON backup export and import.
+  - HTML escaping helper (`escapeHtml`) applied to all user-interpolated DOM elements.
+  - Cross-platform PKZip packager with signature verification.
+  - Real browser automated test in Chrome with zero console errors.
+  - Real 1280×800 store screenshots with fictional sample data.
   - Zero outbound network requests verified via automated audit.

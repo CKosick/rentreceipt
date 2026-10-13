@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "vendor": "node scripts/vendor-jspdf.js",
-    "test": "node test/test-money-math.js && node test/test-ledger.js && node test/test-pdf.js && node test/test-export-import.js && node test/test-network-audit.js && node test/test-manifest.js",
+    "test": "node test/test-money-math.js && node test/test-ledger.js && node test/test-pdf.js && node test/test-export-import.js && node test/test-escape.js && node test/test-network-audit.js && node test/test-manifest.js",
+    "test:browser": "node scripts/browser-test-and-screenshots.js",
+    "screenshots": "node scripts/browser-test-and-screenshots.js",
     "package": "node scripts/package.js"
   },
   "keywords": [
@@ -23,5 +25,9 @@
   "license": "MIT",
   "dependencies": {
     "jspdf": "^4.2.1"
+  },
+  "devDependencies": {
+    "adm-zip": "^0.6.1",
+    "puppeteer-core": "^25.13.0"
   }
 }
