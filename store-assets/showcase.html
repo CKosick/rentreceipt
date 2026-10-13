@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RentReceipt Store Showcase (Visibly Fictional Sample Data)</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0B0F19;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #F8FAFC;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      padding: 40px 0;
+    }
+    .shot-frame {
+      width: 1280px;
+      height: 800px;
+      background: #0F172A;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #1E293B;
+    }
+    .browser-bar {
+      height: 42px;
+      background: #1E293B;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 12px;
+      border-bottom: 1px solid #334155;
+    }
+    .dots {
+      display: flex;
+      gap: 6px;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot-red { background: #EF4444; }
+    .dot-yellow { background: #F59E0B; }
+    .dot-green { background: #10B981; }
+    .url-bar {
+      flex: 1;
+      height: 24px;
+      background: #0F172A;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      font-size: 11px;
+      color: #94A3B8;
+    }
+    .shot-body {
+      flex: 1;
+      display: flex;
+      background: #F8FAFC;
+      color: #0F172A;
+    }
+    .sidebar-mock {
+      width: 240px;
+      background: #0F172A;
+      color: #fff;
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .brand-mock {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-mock {
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #94A3B8;
+    }
+    .nav-mock.active {
+      background: #1E3A8A;
+      color: #fff;
+      font-weight: 600;
+    }
+    .content-mock {
+      flex: 1;
+      padding: 32px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .header-mock {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .title-mock {
+      font-size: 24px;
+      font-weight: 700;
+      color: #0F172A;
+    }
+    .subtitle-mock {
+      font-size: 13px;
+      color: #64748B;
+    }
+    .stats-mock {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .stat-mock-card {
+      background: #fff;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 16px 20px;
+    }
+    .table-mock-card {
+      background: #fff;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      flex: 1;
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th {
+      background: #F8FAFC;
+      color: #64748B;
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid #E2E8F0;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #F1F5F9;
+    }
+    .badge-pill {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .pill-green { background: #ECFDF5; color: #065F46; }
+    .pill-red { background: #FEF2F2; color: #991B1B; }
+    .pill-blue { background: #EFF6FF; color: #1E40AF; }
+  </style>
+</head>
+<body>
+  <!-- Screenshot 1: Payments & Receipts Table -->
+  <div class="shot-frame" id="shot1">
+    <div class="browser-bar">
+      <div class="dots">
+        <div class="dot dot-red"></div>
+        <div class="dot dot-yellow"></div>
+        <div class="dot dot-green"></div>
+      </div>
+      <div class="url-bar">chrome-extension://rentreceipt/dashboard/dashboard.html</div>
+    </div>
+    <div class="shot-body">
+      <div class="sidebar-mock">
+        <div class="brand-mock">🧾 RentReceipt</div>
+        <div class="nav-mock active">💳 Payments & Receipts</div>
+        <div class="nav-mock">🏢 Tenants & Units</div>
+        <div class="nav-mock">📑 Tenant Ledgers</div>
+        <div class="nav-mock">📊 Year-End Tax Summary</div>
+        <div class="nav-mock">⚙️ Settings & Backup</div>
+      </div>
+      <div class="content-mock">
+        <div class="header-mock">
+          <div>
+            <div class="title-mock">Payments & Receipts</div>
+            <div class="subtitle-mock">100% Local • Client-side 1-click PDF receipts</div>
+          </div>
+          <button style="background: #1E3A8A; color: #fff; border:none; padding:10px 18px; border-radius:8px; font-weight:600;">+ Record Payment</button>
+        </div>
+        <div class="stats-mock">
+          <div class="stat-mock-card">
+            <div style="font-size:12px; color:#64748B;">Total Collected (October)</div>
+            <div style="font-size:24px; font-weight:700; color:#0F172A; margin-top:4px;">$2,700.00</div>
+          </div>
+          <div class="stat-mock-card">
+            <div style="font-size:12px; color:#64748B;">Active Units</div>
+            <div style="font-size:24px; font-weight:700; color:#0F172A; margin-top:4px;">2 Units</div>
+          </div>
+          <div class="stat-mock-card">
+            <div style="font-size:12px; color:#64748B;">Receipts Issued</div>
+            <div style="font-size:24px; font-weight:700; color:#0F172A; margin-top:4px;">2 Issued</div>
+          </div>
+        </div>
+        <div class="table-mock-card">
+          <div style="font-weight:600; margin-bottom:12px; font-size:15px;">Recent Payment Records (Fictional Sample Data)</div>
+          <table>
+            <thead>
+              <tr>
+                <th>Receipt #</th>
+                <th>Date</th>
+                <th>Tenant Name</th>
+                <th>Unit</th>
+                <th>Method</th>
+                <th>Late Fee</th>
+                <th>Total Paid</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>RR-2026-0001</strong></td>
+                <td>2026-10-01</td>
+                <td>Sample Tenant A</td>
+                <td>Unit 101</td>
+                <td><span class="badge-pill pill-blue">TRANSFER</span></td>
+                <td><span class="badge-pill pill-green">$0.00</span></td>
+                <td><strong>$1,200.00</strong></td>
+                <td><button style="background:#F1F5F9; border:1px solid #CBD5E1; padding:4px 8px; border-radius:4px; font-size:11px;">📄 PDF</button></td>
+              </tr>
+              <tr>
+                <td><strong>RR-2026-0002</strong></td>
+                <td>2026-10-08</td>
+                <td>Sample Tenant B</td>
+                <td>Unit 102</td>
+                <td><span class="badge-pill pill-blue">CHECK</span></td>
+                <td><span class="badge-pill pill-red">+$50.00</span></td>
+                <td><strong>$1,550.00</strong></td>
+                <td><button style="background:#F1F5F9; border:1px solid #CBD5E1; padding:4px 8px; border-radius:4px; font-size:11px;">📄 PDF</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

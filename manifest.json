@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "RentReceipt - Rent Receipts & Landlord Ledger",
+  "version": "1.0.0",
+  "description": "100% private, local rent receipts, tenant ledgers, late-fee calculation, and year-end tax summaries for small landlords.",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "RentReceipt",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "options_ui": {
+    "page": "dashboard/dashboard.html",
+    "open_in_tab": true
+  },
+  "permissions": []
+}

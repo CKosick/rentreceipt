@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RentReceipt</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-wrapper">
+    <!-- Header -->
+    <header class="popup-header">
+      <div class="header-brand">
+        <img src="../icons/icon-48.png" alt="RentReceipt Icon" class="header-logo">
+        <div>
+          <h1 class="header-title">RentReceipt</h1>
+          <span class="header-badge">100% Local • Private</span>
+        </div>
+      </div>
+      <a href="../dashboard/dashboard.html" target="_blank" class="btn btn-icon" title="Open Full Dashboard in Tab">
+        ↗ Full Tab
+      </a>
+    </header>
+
+    <!-- Month Summary Banner -->
+    <section class="summary-banner">
+      <div class="summary-col">
+        <span class="summary-label">Collected This Month</span>
+        <span id="popup-month-total" class="summary-amount">$0.00</span>
+      </div>
+      <div class="summary-col text-right">
+        <span class="summary-label">Tenants</span>
+        <span id="popup-tenant-count" class="summary-count">0 Active</span>
+      </div>
+    </section>
+
+    <!-- Action Bar -->
+    <div class="action-bar">
+      <button id="btn-popup-record" class="btn btn-primary w-full">+ Record Payment</button>
+    </div>
+
+    <!-- Quick Payment Modal / Drawer -->
+    <div id="popup-drawer" class="drawer hidden">
+      <div class="drawer-header">
+        <h3>Record Rent Payment</h3>
+        <button id="btn-close-drawer" class="drawer-close">&times;</button>
+      </div>
+      <form id="form-popup-payment">
+        <div class="form-group">
+          <label for="pop-tenant">Tenant & Unit *</label>
+          <select id="pop-tenant" class="form-control" required></select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-half">
+            <label for="pop-due-date">Due Date</label>
+            <input type="date" id="pop-due-date" class="form-control" required>
+          </div>
+          <div class="form-group col-half">
+            <label for="pop-pay-date">Date Paid</label>
+            <input type="date" id="pop-pay-date" class="form-control" required>
+          </div>
+        </div>
+
+        <!-- Late Fee Auto Banner -->
+        <div id="pop-calc-banner" class="pop-calc-box">
+          <span id="pop-calc-badge" class="badge-neutral">Calculating...</span>
+          <span id="pop-calc-text">On time</span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-half">
+            <label for="pop-rent-amount">Base Rent ($)</label>
+            <input type="number" step="0.01" min="0" id="pop-rent-amount" class="form-control" required>
+          </div>
+          <div class="form-group col-half">
+            <label for="pop-late-fee">Late Fee ($)</label>
+            <input type="number" step="0.01" min="0" id="pop-late-fee" class="form-control" value="0.00">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-half">
+            <label for="pop-total-paid">Total Received ($) *</label>
+            <input type="number" step="0.01" min="0.01" id="pop-total-paid" class="form-control" required>
+          </div>
+          <div class="form-group col-half">
+            <label for="pop-method">Method *</label>
+            <select id="pop-method" class="form-control" required>
+              <option value="check">Check</option>
+              <option value="transfer">Bank Transfer / Zelle</option>
+              <option value="cash">Cash</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="pop-memo">Memo / Check #</label>
+          <input type="text" id="pop-memo" class="form-control" placeholder="e.g. Check #1042">
+        </div>
+
+        <div class="drawer-actions">
+          <button type="button" id="btn-cancel-drawer" class="btn btn-secondary">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save & Get PDF Receipt</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Recent Payments List -->
+    <section class="recent-section">
+      <div class="section-title-row">
+        <h2>Recent Payments</h2>
+        <span class="text-muted">1-Click PDF</span>
+      </div>
+      <div id="popup-payments-list" class="payments-scroll">
+        <div class="empty-state">No payments recorded yet.</div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="popup-footer">
+      <a href="../dashboard/dashboard.html" target="_blank" class="footer-link">Full Ledgers & Tax Reports →</a>
+    </footer>
+  </div>
+
+  <!-- Bundled jsPDF and popup script -->
+  <script src="../lib/jspdf.umd.min.js"></script>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RentReceipt - Landlord Dashboard & Ledger</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="../icons/icon-48.png" alt="RentReceipt Logo" class="brand-icon">
+        <div class="brand-text">
+          <span class="brand-title">RentReceipt</span>
+          <span class="brand-tag">Private Landlord Kit</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <button class="nav-item active" data-tab="payments">
+          <span class="nav-icon">💳</span>
+          <span class="nav-label">Payments & Receipts</span>
+        </button>
+        <button class="nav-item" data-tab="tenants">
+          <span class="nav-icon">🏢</span>
+          <span class="nav-label">Tenants & Units</span>
+        </button>
+        <button class="nav-item" data-tab="ledger">
+          <span class="nav-icon">📑</span>
+          <span class="nav-label">Tenant Ledgers</span>
+        </button>
+        <button class="nav-item" data-tab="yearend">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">Year-End Tax Summary</span>
+        </button>
+        <button class="nav-item" data-tab="settings">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label">Settings & Backup</span>
+        </button>
+      </nav>
+
+      <div class="privacy-pill">
+        <div class="pill-dot"></div>
+        <div class="pill-content">
+          <strong>100% Local Storage</strong>
+          <span>Zero Network Outbound</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content View -->
+    <main class="main-content">
+      <!-- Top App Bar -->
+      <header class="app-header">
+        <div class="header-left">
+          <h1 id="page-title">Payments & Receipts</h1>
+          <p id="page-subtitle" class="text-muted">Record rent, calculate late fees, and issue PDF receipts.</p>
+        </div>
+        <div class="header-actions">
+          <button id="btn-quick-record" class="btn btn-primary">+ Record Payment</button>
+          <button id="btn-add-tenant-top" class="btn btn-secondary">+ New Tenant</button>
+        </div>
+      </header>
+
+      <!-- View Sections -->
+      <!-- TAB 1: PAYMENTS & RECEIPTS -->
+      <section id="tab-payments" class="tab-view active">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-label">Total Collected (This Month)</span>
+            <span id="stat-month-collected" class="stat-value">$0.00</span>
+            <span class="stat-subtext">Verified rent & fee receipts</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Active Tenants</span>
+            <span id="stat-active-tenants" class="stat-value">0</span>
+            <span class="stat-subtext">Configured units</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Total Receipts Issued</span>
+            <span id="stat-total-receipts" class="stat-value">0</span>
+            <span class="stat-subtext">Available for one-click PDF</span>
+          </div>
+        </div>
+
+        <div class="card table-card">
+          <div class="card-header">
+            <h3>Recent Payments</h3>
+            <div class="table-filters">
+              <input type="text" id="payment-search" placeholder="Search tenant, unit, or receipt #..." class="input-search">
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Receipt #</th>
+                  <th>Date</th>
+                  <th>Tenant</th>
+                  <th>Unit</th>
+                  <th>Method</th>
+                  <th>Rent</th>
+                  <th>Late Fee</th>
+                  <th>Total Paid</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="payments-table-body">
+                <tr><td colspan="9" class="text-center py-4">No payments recorded yet. Click "+ Record Payment" to begin.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: TENANTS & UNITS -->
+      <section id="tab-tenants" class="tab-view">
+        <div class="card table-card">
+          <div class="card-header">
+            <h3>Tenants & Unit Profiles</h3>
+            <button id="btn-add-tenant-page" class="btn btn-primary btn-sm">+ Add Tenant</button>
+          </div>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Tenant Name</th>
+                  <th>Unit</th>
+                  <th>Monthly Rent</th>
+                  <th>Due Day</th>
+                  <th>Grace Period</th>
+                  <th>Late Fee Rule</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="tenants-table-body">
+                <tr><td colspan="7" class="text-center py-4">No tenants added yet.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: TENANT LEDGERS -->
+      <section id="tab-ledger" class="tab-view">
+        <div class="ledger-header-card card">
+          <div class="ledger-controls">
+            <div class="form-group inline-group">
+              <label for="ledger-tenant-select">Select Tenant:</label>
+              <select id="ledger-tenant-select" class="form-control">
+                <option value="">-- Choose Tenant --</option>
+              </select>
+            </div>
+            <div id="ledger-stats" class="ledger-summary-badges">
+              <div class="badge-item">
+                <span class="badge-label">Monthly Rent:</span>
+                <span id="ledger-monthly-rent" class="badge-val">$0.00</span>
+              </div>
+              <div class="badge-item">
+                <span class="badge-label">Total Paid:</span>
+                <span id="ledger-total-paid" class="badge-val">$0.00</span>
+              </div>
+              <div class="badge-item">
+                <span class="badge-label">Total Late Fees:</span>
+                <span id="ledger-total-late-fees" class="badge-val">$0.00</span>
+              </div>
+              <div class="badge-item highlight">
+                <span class="badge-label">Current Balance:</span>
+                <span id="ledger-current-balance" class="badge-val">$0.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card table-card mt-4">
+          <div class="card-header">
+            <h3>Transaction Ledger</h3>
+          </div>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Description / Memo</th>
+                  <th>Amount</th>
+                  <th>Running Balance</th>
+                  <th>Receipt</th>
+                </tr>
+              </thead>
+              <tbody id="ledger-table-body">
+                <tr><td colspan="6" class="text-center py-4">Select a tenant to view their ledger.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: YEAR-END TAX SUMMARY -->
+      <section id="tab-yearend" class="tab-view">
+        <div class="card yearend-filter-card">
+          <div class="yearend-controls">
+            <div class="form-group inline-group">
+              <label for="tax-year-select">Tax Year:</label>
+              <select id="tax-year-select" class="form-control"></select>
+            </div>
+            <div class="export-actions">
+              <button id="btn-export-csv" class="btn btn-secondary">📥 Export CSV</button>
+              <button id="btn-print-tax" class="btn btn-secondary">🖨️ Print Tax Report</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="stats-grid mt-4">
+          <div class="stat-card">
+            <span class="stat-label">Total Gross Income</span>
+            <span id="tax-total-gross" class="stat-value">$0.00</span>
+            <span class="stat-subtext">All rent + late fees collected</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Total Base Rent</span>
+            <span id="tax-total-rent" class="stat-value">$0.00</span>
+            <span class="stat-subtext">Scheduled lease income</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Total Late Fees</span>
+            <span id="tax-total-late-fees" class="stat-value">$0.00</span>
+            <span class="stat-subtext">Assessed penalties collected</span>
+          </div>
+        </div>
+
+        <div class="card table-card mt-4">
+          <div class="card-header">
+            <h3>Income by Unit & Tenant</h3>
+          </div>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Unit</th>
+                  <th>Tenant Name</th>
+                  <th>Payments Count</th>
+                  <th>Months Covered</th>
+                  <th>Rent Collected</th>
+                  <th>Late Fees</th>
+                  <th>Total Collected</th>
+                </tr>
+              </thead>
+              <tbody id="tax-unit-table-body">
+                <tr><td colspan="7" class="text-center py-4">No records found for selected year.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: SETTINGS & BACKUP -->
+      <section id="tab-settings" class="tab-view">
+        <div class="grid-2col">
+          <!-- Landlord Profile -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Landlord / Business Info</h3>
+            </div>
+            <form id="form-settings" class="settings-form">
+              <div class="form-group">
+                <label for="set-landlord-name">Landlord or Property Name</label>
+                <input type="text" id="set-landlord-name" class="form-control" placeholder="e.g. Apex Rentals LLC">
+              </div>
+              <div class="form-group">
+                <label for="set-property-address">Address / Business Office</label>
+                <input type="text" id="set-property-address" class="form-control" placeholder="123 Main St, City, ST">
+              </div>
+              <div class="form-row">
+                <div class="form-group col-half">
+                  <label for="set-landlord-phone">Contact Phone</label>
+                  <input type="text" id="set-landlord-phone" class="form-control" placeholder="(555) 000-0000">
+                </div>
+                <div class="form-group col-half">
+                  <label for="set-landlord-email">Contact Email</label>
+                  <input type="email" id="set-landlord-email" class="form-control" placeholder="landlord@example.com">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="set-receipt-notes">Receipt Disclaimer / Thank You Note</label>
+                <textarea id="set-receipt-notes" class="form-control" rows="3" placeholder="Thank you for your prompt payment..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Save Business Info</button>
+            </form>
+          </div>
+
+          <!-- Data Backup & Privacy -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Backup, Restore & Privacy</h3>
+            </div>
+            <div class="backup-section">
+              <p class="text-muted mb-4">
+                All tenant records and financial data are saved 100% locally in your browser's IndexedDB.
+                Download a JSON backup anytime to archive your records or migrate between computers.
+              </p>
+
+              <div class="backup-button-group">
+                <button id="btn-export-backup" class="btn btn-secondary w-full mb-3">
+                  💾 Download Complete JSON Backup
+                </button>
+                <label class="btn btn-outline w-full mb-4">
+                  📂 Restore from JSON File
+                  <input type="file" id="file-import-backup" accept=".json" style="display: none;">
+                </label>
+              </div>
+
+              <div class="feature-seam-box">
+                <h4>Tier & Architecture Seam</h4>
+                <p><strong>Tier:</strong> Free Standard MVP</p>
+                <p><strong>Pro Seams:</strong> Cloud sync, multi-user & bank integrations are clean offline flags.</p>
+                <span class="badge-success">Zero Outbound Telemetry Verified</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- MODAL: RECORD PAYMENT -->
+  <div id="modal-record-payment" class="modal-overlay hidden">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modal-payment-title">Record Rent Payment</h3>
+        <button class="modal-close">&times;</button>
+      </div>
+      <form id="form-record-payment">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="pay-tenant-id">Tenant & Unit *</label>
+            <select id="pay-tenant-id" class="form-control" required>
+              <option value="">-- Select Tenant --</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-half">
+              <label for="pay-due-date">Rent Due Date *</label>
+              <input type="date" id="pay-due-date" class="form-control" required>
+            </div>
+            <div class="form-group col-half">
+              <label for="pay-date">Payment Date Received *</label>
+              <input type="date" id="pay-date" class="form-control" required>
+            </div>
+          </div>
+
+          <!-- Live Late-Fee Calculator Preview Box -->
+          <div id="late-fee-calculator-preview" class="calc-preview-card">
+            <div class="calc-title">⚡ Late Fee Calculator (Automatic)</div>
+            <div class="calc-details">
+              <span id="calc-status-badge" class="badge-success">On Time</span>
+              <span id="calc-rule-text" class="calc-text">Due date matches</span>
+            </div>
+            <div class="calc-amount-row">
+              <span>Calculated Late Fee:</span>
+              <strong id="calc-fee-amount">$0.00</strong>
+            </div>
+          </div>
+
+          <div class="form-row mt-3">
+            <div class="form-group col-half">
+              <label for="pay-base-rent">Base Rent Amount ($) *</label>
+              <input type="number" step="0.01" min="0" id="pay-base-rent" class="form-control" required>
+            </div>
+            <div class="form-group col-half">
+              <label for="pay-late-fee">Late Fee Assessed ($)</label>
+              <input type="number" step="0.01" min="0" id="pay-late-fee" class="form-control" value="0.00">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-half">
+              <label for="pay-amount">Total Payment Received ($) *</label>
+              <input type="number" step="0.01" min="0.01" id="pay-amount" class="form-control" required>
+            </div>
+            <div class="form-group col-half">
+              <label for="pay-method">Payment Method *</label>
+              <select id="pay-method" class="form-control" required>
+                <option value="check">Check</option>
+                <option value="transfer">Bank Transfer (Zelle / ACH)</option>
+                <option value="cash">Cash</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-half">
+              <label for="pay-period">Rental Period (Month/Year)</label>
+              <input type="text" id="pay-period" class="form-control" placeholder="e.g. October 2026">
+            </div>
+            <div class="form-group col-half">
+              <label for="pay-memo">Memo / Check # / Ref</label>
+              <input type="text" id="pay-memo" class="form-control" placeholder="e.g. Check #1042">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save & Generate Receipt</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT TENANT -->
+  <div id="modal-tenant" class="modal-overlay hidden">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modal-tenant-title">Add New Tenant Profile</h3>
+        <button class="modal-close">&times;</button>
+      </div>
+      <form id="form-tenant">
+        <input type="hidden" id="tenant-id">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group col-half">
+              <label for="tenant-name">Tenant Full Name *</label>
+              <input type="text" id="tenant-name" class="form-control" required placeholder="e.g. Sample Tenant">
+            </div>
+            <div class="form-group col-half">
+              <label for="tenant-unit">Unit / Apartment *</label>
+              <input type="text" id="tenant-unit" class="form-control" required placeholder="e.g. Unit 2B">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-half">
+              <label for="tenant-rent">Monthly Rent ($) *</label>
+              <input type="number" step="0.01" min="0" id="tenant-rent" class="form-control" required placeholder="1250.00">
+            </div>
+            <div class="form-group col-half">
+              <label for="tenant-due-day">Due Day of Month *</label>
+              <input type="number" min="1" max="31" id="tenant-due-day" class="form-control" value="1" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="tenant-grace">Grace Period (Days)</label>
+            <input type="number" min="0" max="30" id="tenant-grace" class="form-control" value="5">
+            <small class="text-muted">Days after due date before late fees start accruing.</small>
+          </div>
+
+          <div class="card p-3 bg-slate mt-2">
+            <h4 class="mb-2">Late Fee Rule Configuration</h4>
+            <div class="form-group">
+              <label for="tenant-rule-type">Late Fee Type</label>
+              <select id="tenant-rule-type" class="form-control">
+                <option value="flat">Flat Amount Fee (e.g. $50 one-time)</option>
+                <option value="daily">Daily Rate Fee (e.g. $10 per day late)</option>
+              </select>
+            </div>
+
+            <div id="rule-flat-group" class="form-group">
+              <label for="tenant-rule-flat">Flat Late Fee ($)</label>
+              <input type="number" step="0.01" min="0" id="tenant-rule-flat" class="form-control" value="50.00">
+            </div>
+
+            <div id="rule-daily-group" class="form-group hidden">
+              <label for="tenant-rule-daily">Daily Late Fee Rate ($/day)</label>
+              <input type="number" step="0.01" min="0" id="tenant-rule-daily" class="form-control" value="10.00">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Tenant Profile</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Load bundled client-side jsPDF library -->
+  <script src="../lib/jspdf.umd.min.js"></script>
+  <!-- Load modular dashboard application script -->
+  <script type="module" src="dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RentReceipt - Privacy Policy</title>
+  <style>
+    :root {
+      --primary: #1E3A8A;
+      --text: #0F172A;
+      --muted: #475569;
+      --bg: #F8FAFC;
+      --card: #FFFFFF;
+      --border: #E2E8F0;
+      --accent: #10B981;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      margin: 0;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--card);
+      padding: 48px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+    h1 {
+      color: var(--primary);
+      font-size: 28px;
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    h2 {
+      font-size: 19px;
+      color: var(--primary);
+      margin-top: 28px;
+      margin-bottom: 10px;
+    }
+    p, ul {
+      color: var(--text);
+      font-size: 14.5px;
+      margin-bottom: 14px;
+    }
+    ul {
+      padding-left: 24px;
+    }
+    li {
+      margin-bottom: 6px;
+    }
+    .highlight-box {
+      background: #EFF6FF;
+      border-left: 4px solid var(--primary);
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 24px 0;
+    }
+    .contact-box {
+      background: #ECFDF5;
+      border: 1px solid #A7F3D0;
+      padding: 18px 20px;
+      border-radius: 8px;
+      margin-top: 28px;
+    }
+    .contact-box h3 {
+      margin-top: 0;
+      color: #065F46;
+      font-size: 16px;
+    }
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Privacy Policy for RentReceipt</h1>
+    <div class="subtitle">Effective Date: October 12, 2026 • Version 1.0.0</div>
+
+    <div class="highlight-box">
+      <strong>Core Privacy Guarantee:</strong> RentReceipt collects nothing, transmits nothing, and tracks nothing. All tenant records, rental payment histories, amounts, and ledger notes are stored 100% locally in your browser's IndexedDB storage.
+    </div>
+
+    <h2>1. Data Collection: None</h2>
+    <p>
+      RentReceipt does not collect, harvest, inspect, or process personal or financial data on external servers:
+    </p>
+    <ul>
+      <li><strong>No Server:</strong> There are no backend servers, databases, or cloud endpoints associated with RentReceipt.</li>
+      <li><strong>No Outbound Network Requests:</strong> The extension contains zero network code paths. There is no <code>fetch()</code>, no <code>XMLHttpRequest</code>, no <code>WebSocket</code>, and no <code>sendBeacon</code>.</li>
+      <li><strong>No Analytics or Tracking:</strong> There are no Google Analytics, telemetry libraries, error monitoring beacons, or advertising scripts.</li>
+    </ul>
+
+    <h2>2. Local Data Storage (IndexedDB)</h2>
+    <p>
+      All data you input—such as tenant names, rental unit identifiers, monthly payment records, late fee rules, and landlord contact details—is written strictly to your device's browser-managed local IndexedDB storage.
+    </p>
+    <p>
+      You retain total ownership and control of your data at all times. You can export a complete JSON backup to your local hard drive or restore from one using the built-in Settings & Backup controls.
+    </p>
+
+    <h2>3. Permissions</h2>
+    <p>
+      RentReceipt requests <strong>zero special browser permissions</strong>. It does not request access to your browsing history, tabs, website data, or downloads. Everything runs locally in the extension's own interface.
+    </p>
+
+    <h2>4. Client-Side PDF Generation</h2>
+    <p>
+      All rent receipt PDFs are generated entirely on your device using a locally bundled, self-contained library (<code>jsPDF</code>). No documents, names, or financial numbers are ever sent across the internet.
+    </p>
+
+    <h2>5. Changes to This Policy</h2>
+    <p>
+      Because RentReceipt is an open-source, local-first extension that does not communicate with external services, our privacy commitments remain immutable. Any future software updates will maintain this local-first architecture.
+    </p>
+
+    <div class="contact-box">
+      <h3>6. Contact & Open Source Inquiries</h3>
+      <p>
+        If you have questions about this privacy policy or wish to review the extension's source code, please visit our public GitHub repository or contact the developer:
+      </p>
+      <p>
+        <strong>GitHub Repository:</strong> <a href="https://github.com/CKosick/rentreceipt" target="_blank">github.com/CKosick/rentreceipt</a><br>
+        <strong>Developer Contact:</strong> <a href="mailto:cliff@example.com">cliff@example.com</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>
